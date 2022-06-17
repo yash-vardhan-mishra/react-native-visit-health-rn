@@ -69,7 +69,10 @@
   },
   "peerDependencies": {
     "react": "*",
-    "react-native": "*"
+    "react-native": "*",
+    "react-native-webview": "^11.22.2",
+    "axios": "^0.27.2",
+    "moment": "^2.29.3"
   },
   "jest": {
     "preset": "react-native",
