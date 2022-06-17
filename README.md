@@ -11,11 +11,14 @@ npm install react-native-visit-health-rn
 ## Usage
 
 ```js
-import { multiply } from "react-native-visit-health-rn";
+import VisitHealthViewIos from 'react-native-visit-health-rn';
 
 // ...
 
-const result = await multiply(3, 7);
+export default function App() {
+  return <VisitHealthViewIos />;
+}
+
 ```
 
 ## Contributing
