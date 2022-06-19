@@ -1,6 +1,6 @@
-import React, { useRef, useEffect, useState, useCallback } from 'react';
+import React, {useRef, useEffect, useState, useCallback} from 'react';
 
-import { SafeAreaView, BackHandler, Platform } from 'react-native';
+import {SafeAreaView, BackHandler, Platform} from 'react-native';
 import {
   requestActivityRecognitionPermission,
   requestActivityData,
@@ -9,6 +9,7 @@ import {
   handleMessage,
 } from './VisitPluginAndroid';
 import WebView from 'react-native-webview';
+
 
 function getRunBeforeFirst(platform) {
   let runBeforeFirst = null;
@@ -56,7 +57,7 @@ const HelloWorldApp = () => {
   }, [handleBack]);
 
   return (
-    <SafeAreaView style={{ flex: 1 }}>
+    <SafeAreaView style={{flex: 1}}>
       <WebView
         ref={webviewRef}
         source={{
@@ -65,10 +66,10 @@ const HelloWorldApp = () => {
             platform: 'ANDROID',
           },
         }}
-        onMessage={(event) => handleMessage(event, webviewRef)}
+        onMessage={event => handleMessage(event, webviewRef)}
         injectedJavaScriptBeforeContentLoaded={runBeforeStart}
         javaScriptEnabled={true}
-        onLoadProgress={(event) => setCanGoBack(event.nativeEvent.canGoBack)}
+        onLoadProgress={event => setCanGoBack(event.nativeEvent.canGoBack)}
       />
     </SafeAreaView>
   );

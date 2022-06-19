@@ -1,9 +1,10 @@
-import { LogBox, NativeModules, PermissionsAndroid } from 'react-native';
+import {LogBox, NativeModules, PermissionsAndroid} from 'react-native';
 
-const DEFAULT_CLIENT_ID =
-  '476467749625-f9hnkuihk4dcin8n0so8ffjgsvn07lb5.apps.googleusercontent.com';
 
-export const requestActivityRecognitionPermission = async (webviewRef) => {
+
+export const requestActivityRecognitionPermission = async (
+  webviewRef
+) => {
   console.log('inside requestActivityRecognitionPermission()');
   try {
     const granted = await PermissionsAndroid.request(
@@ -14,7 +15,7 @@ export const requestActivityRecognitionPermission = async (webviewRef) => {
         buttonNeutral: 'Ask Me Later',
         buttonNegative: 'Cancel',
         buttonPositive: 'OK',
-      }
+      },
     );
     if (granted === PermissionsAndroid.RESULTS.GRANTED) {
       console.log('ACTIVITY_RECOGNITION granted');
@@ -30,7 +31,7 @@ export const requestActivityRecognitionPermission = async (webviewRef) => {
 
 const askForGoogleFitPermission = async (webviewRef) => {
   try {
-    NativeModules.VisitFitnessModule.initiateSDK(DEFAULT_CLIENT_ID);
+    NativeModules.VisitFitnessModule.initiateSDK();
 
     const isPermissionGranted =
       await NativeModules.VisitFitnessModule.askForFitnessPermission();
@@ -43,10 +44,10 @@ const askForGoogleFitPermission = async (webviewRef) => {
   }
 };
 
-const getDailyFitnessData = (webviewRef) => {
+const getDailyFitnessData = webviewRef => {
   console.log('getDailyFitnessData() called');
 
-  NativeModules.VisitFitnessModule.requestDailyFitnessData((data) => {
+  NativeModules.VisitFitnessModule.requestDailyFitnessData(data => {
     console.log(`getDailyFitnessData() data: ` + data);
     webviewRef.current.injectJavaScript(data);
   });
@@ -59,10 +60,10 @@ export const requestActivityData = (type, frequency, timeStamp, webviewRef) => {
     type,
     frequency,
     timeStamp,
-    (data) => {
+    data => {
       console.log(`requestActivityData() data: ` + data);
       webviewRef.current.injectJavaScript('window.' + data);
-    }
+    },
   );
 };
 
@@ -76,7 +77,7 @@ export const requestLocationPermission = async () => {
         buttonNeutral: 'Ask Me Later',
         buttonNegative: 'Cancel',
         buttonPositive: 'OK',
-      }
+      },
     );
     if (granted === PermissionsAndroid.RESULTS.GRANTED) {
       console.log('Location permission granted');
@@ -95,18 +96,23 @@ export const updateApiBaseUrl = (
   gfHourlyLastSync
 ) => {
   console.log('updateApiBaseUrl() called.');
-  NativeModules.VisitFitnessModule.initiateSDK(DEFAULT_CLIENT_ID);
+  NativeModules.VisitFitnessModule.initiateSDK();
 
   NativeModules.VisitFitnessModule.updateApiBaseUrl(
     apiBaseUrl,
     authtoken,
     googleFitLastSync,
-    gfHourlyLastSync
+    gfHourlyLastSync,
   );
 };
 
 export const handleMessage = (event, webviewRef) => {
-  console.log('event:' + event + ' webviewRef: ' + webviewRef);
+  console.log(
+    'event:' +
+      event +
+      ' webviewRef: ' +
+      webviewRef
+  );
 
   if (event.nativeEvent.data != null) {
     try {
@@ -119,7 +125,7 @@ export const handleMessage = (event, webviewRef) => {
             break;
           case 'UPDATE_PLATFORM':
             webviewRef.current?.injectJavaScript(
-              'window.setSdkPlatform("ANDROID")'
+              'window.setSdkPlatform("ANDROID")',
             );
             break;
           case 'UPDATE_API_BASE_URL':
@@ -138,7 +144,7 @@ export const handleMessage = (event, webviewRef) => {
                   ' googleFitLastSync: ' +
                   googleFitLastSync +
                   ' gfHourlyLastSync: ' +
-                  gfHourlyLastSync
+                  gfHourlyLastSync,
               );
 
               updateApiBaseUrl(
@@ -161,7 +167,7 @@ export const handleMessage = (event, webviewRef) => {
                   ' frequency:' +
                   frequency +
                   ' timeStamp: ' +
-                  timeStamp
+                  timeStamp,
               );
 
               requestActivityData(type, frequency, timeStamp, webviewRef);
