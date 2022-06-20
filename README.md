@@ -5,7 +5,7 @@ a custom webview component that injects data into visit pwa through native modul
 ## Installation
 
 ```sh
-yarn add https://github.com/yash-vardhan-mishra/react-native-visit-health-rn.git && npx pod-install
+yarn add https://github.com/yash-vardhan-mishra/react-native-visit-health-rn && npx pod-install
 ```
 
 ## Usage
