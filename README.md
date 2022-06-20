@@ -5,18 +5,19 @@ a custom webview component that injects data into visit pwa through native modul
 ## Installation
 
 ```sh
-npm install react-native-visit-health-rn
+npm install react-native-visit-health-rn && npx pod-install
 ```
 
 ## Usage
 
 ```js
-import VisitHealthViewIos from 'react-native-visit-health-rn';
+import VisitHealthView from 'react-native-visit-health-rn';
 
 // ...
 
+
 export default function App() {
-  return <VisitHealthViewIos />;
+  return <VisitHealthView source="___SOURCE_URL_FOR_PWA___" />;
 }
 
 ```
