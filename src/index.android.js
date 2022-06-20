@@ -1,6 +1,6 @@
-import React, {useRef, useEffect, useState, useCallback} from 'react';
+import React, { useRef, useEffect, useState, useCallback } from 'react';
 
-import {SafeAreaView, BackHandler, Platform} from 'react-native';
+import { SafeAreaView, BackHandler, Platform } from 'react-native';
 import {
   requestActivityRecognitionPermission,
   requestActivityData,
@@ -34,7 +34,7 @@ function getRunBeforeFirst(platform) {
   return runBeforeFirst;
 }
 
-const HelloWorldApp = () => {
+const VisitHealthView = ({ source }) => {
   const webviewRef = useRef(null);
 
   const runBeforeStart = getRunBeforeFirst(Platform.OS);
@@ -57,22 +57,26 @@ const HelloWorldApp = () => {
   }, [handleBack]);
 
   return (
-    <SafeAreaView style={{flex: 1}}>
+    <SafeAreaView style={{ flex: 1 }}>
       <WebView
         ref={webviewRef}
         source={{
-          uri: 'https://star-health.getvisitapp.xyz/login',
+          uri: source,
           headers: {
             platform: 'ANDROID',
           },
         }}
-        onMessage={event => handleMessage(event, webviewRef)}
+        onMessage={(event) => handleMessage(event, webviewRef)}
         injectedJavaScriptBeforeContentLoaded={runBeforeStart}
         javaScriptEnabled={true}
-        onLoadProgress={event => setCanGoBack(event.nativeEvent.canGoBack)}
+        onLoadProgress={(event) => setCanGoBack(event.nativeEvent.canGoBack)}
       />
     </SafeAreaView>
   );
 };
 
-export default HelloWorldApp;
+export default VisitHealthView;
+
+VisitHealthView.defaultProps = {
+  source: '',
+};

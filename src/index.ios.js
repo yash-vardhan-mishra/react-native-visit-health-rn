@@ -46,7 +46,7 @@ const unescapeHTML = (str) =>
     }
   });
 
-const VisitHealthView = () => {
+const VisitHealthView = ({ source }) => {
   const VisitHealthRn = useMemo(
     () =>
       NativeModules.VisitHealthRn
@@ -183,7 +183,7 @@ const VisitHealthView = () => {
     <SafeAreaView style={styles.webViewContainer}>
       <WebView
         ref={webviewRef}
-        source={{ uri: 'https://star-health.getvisitapp.xyz/login' }}
+        source={{ uri: source }}
         style={styles.webView}
         javascriptEnabled
         onMessage={handleMessage}
@@ -203,3 +203,7 @@ const styles = StyleSheet.create({
 });
 
 export default VisitHealthView;
+
+VisitHealthView.defaultProps = {
+  source: '',
+};
